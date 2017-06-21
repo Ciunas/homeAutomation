@@ -1,16 +1,14 @@
-
 #include "Responses.h"
-
 
 int parseRequest( String request ) {
 
   Serial.println(request);
   String temp = request.substring(10, 13);
-  char relay [4] = {}; 
+  char relay [4] = {};
   temp.toCharArray(relay, 4);
   Serial.println(temp);
   return strtol(relay, 0, 16);
-  
+
 }
 
 void relayControl( EthernetClient client , int rNum) {
@@ -36,9 +34,29 @@ void relayControl( EthernetClient client , int rNum) {
   }
 
   digitalWrite(rNum , !digitalRead(rNum ));
-  
+
 
   client.println("</html>");
+
+}
+
+//Shut down runeAudio player
+void shutdownMusic( IPAddress remote) {
+
+  EthernetClient client;
+  
+  if (client.connect(remote, 80)) {
+    Serial.println("connected");
+    client.println("POST /settings/ HTTP/1.0");
+    client.println("Content-Type: application/x-www-form-urlencoded; charset=UTF-8");
+    client.print("Content-Length: 15");
+    client.println();
+    client.println();
+    client.println("syscmd=poweroff");
+
+  } else {
+    Serial.println("connection failed");
+  }
 
 }
 

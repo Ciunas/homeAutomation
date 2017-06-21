@@ -4,6 +4,7 @@
 
 // Enter a MAC address and IP address
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAddress remote(192, 168, 10, 3);
 IPAddress ip(192, 168, 10, 2);
 EthernetServer server(80);    // (port 80 is default for HTTP):
 String request;               // string to hold  GET request
