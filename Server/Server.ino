@@ -16,14 +16,18 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
   request = String();
-  pinMode(2, OUTPUT); 
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+
   // start the Ethernet connection and the server:
   Ethernet.begin(mac, ip);
   server.begin();
   Serial.print("server is at ");
-  Serial.println(Ethernet.localIP()); 
-  
-  
+  Serial.println(Ethernet.localIP());
+
+
   Serial.println();
 }
 
@@ -37,23 +41,23 @@ void loop() {
     Serial.println("new client");
     boolean currentLineIsBlank = true;
     boolean currentLineFirst = true;
-    
+
     while (client.connected()) {
 
       if (client.available()) {
 
         char c = client.read();
         Serial.write(c);
-        if(currentLineFirst){
+        if (currentLineFirst) {
           request =  request + c;
         }
-        
+
         //Recieved two "\n" in a row, send response.
         if (c == '\n' && currentLineIsBlank) {
 
- 
-          relayControl( client, parseRequest( request) );
 
+          relayControl( client, parseRequest( request) );
+          request = "";
           break;
         }
 

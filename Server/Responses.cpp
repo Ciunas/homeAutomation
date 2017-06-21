@@ -4,11 +4,13 @@
 
 int parseRequest( String request ) {
 
+  Serial.println(request);
   String temp = request.substring(10, 13);
-  char relay [4] = {};
-  Serial.println(temp);
+  char relay [4] = {}; 
   temp.toCharArray(relay, 4);
+  Serial.println(temp);
   return strtol(relay, 0, 16);
+  
 }
 
 void relayControl( EthernetClient client , int rNum) {
@@ -33,7 +35,7 @@ void relayControl( EthernetClient client , int rNum) {
     client.println("<br />");
   }
 
-  digitalWrite(rNum, !digitalRead(rNum));
+  digitalWrite(rNum , !digitalRead(rNum ));
   
 
   client.println("</html>");
