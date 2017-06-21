@@ -17,19 +17,24 @@ public class MainActivity extends AppCompatActivity {
     //public static final String URL = "http://localhost:25000";
     Button button1;
     Button button2;
+    Button button3;
+    Button button4;
+    static  int buttNum = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Start service
+        //Button 2
         button2 = (Button) findViewById(R.id.button2);
         button2.setVisibility(View.VISIBLE);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("Running async task");
+                buttNum = 3;
                 FetchData task = new FetchData();
                 task.execute();
             }
@@ -37,19 +42,44 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //Start service
+        //Button 1
         button1 = (Button) findViewById(R.id.button1);
         button1.setVisibility(View.VISIBLE);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttNum = 2;
+                FetchData task = new FetchData();
+                task.execute();
+            }
+        });
 
+        //Button 3
+        button3 = (Button) findViewById(R.id.button3);
+        button3.setVisibility(View.VISIBLE);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttNum = 4;
+                FetchData task = new FetchData();
+                task.execute();
+            }
+        });
 
+        //Button 4
+        button4 = (Button) findViewById(R.id.button4);
+        button4.setVisibility(View.VISIBLE);
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttNum = 5;
+                FetchData task = new FetchData();
+                task.execute();
             }
         });
     }
 
-    private class FetchData extends AsyncTask<Void, Void, String> {
+    private class FetchData extends AsyncTask< Void, Void, String > {
 
         @Override
         protected String doInBackground(Void... params) {
@@ -63,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("running async");
             try {
                 // Construct the URL
-                java.net.URL url = new java.net.URL("http://192.168.1.24:1989");
+                java.net.URL url = new java.net.URL("http://192.168.10.2/?hex=0x" + buttNum);
 
                 // Create the request to server, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
