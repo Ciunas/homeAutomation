@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +15,6 @@ import java.net.HttpURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
-    //public static final String URL = "http://localhost:25000";
     Button button1;
     Button button2;
     Button button3;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 buttNum = 3;
                 FetchData task = new FetchData();
                 task.execute();
+
             }
         });
 
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 System.out.println(" hello" + buffer.toString());
+                Toast.makeText(MainActivity.this, "Button Pressed!",
+                        Toast.LENGTH_LONG).show();
                 return buffer.toString();
 
             } catch (IOException e) {
